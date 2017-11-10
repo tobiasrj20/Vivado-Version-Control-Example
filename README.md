@@ -77,3 +77,8 @@ Every time changes have been made to the block-design a new "block-design".tcl s
 
 ## Commiting Xilinx SDK changes
 
+## Sources of inspiration
+http://www.fpgadeveloper.com/2014/08/version-control-for-vivado-projects.html
+
+http://xillybus.com/tutorials/vivado-version-control-packaging
+
