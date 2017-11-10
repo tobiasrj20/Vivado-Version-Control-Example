@@ -1,5 +1,5 @@
 # Vivado-Version-Control-Example
-Repository to show an example of how to do revision control with Vivado and Xilinx SDK.
+Repository to show an example of how to do version control with Vivado and Xilinx SDK.
 
 ## Folder description
 The Vivado folder contains the build.tcl script, which is exported from Vivado and afterwards modified to use relative paths and to create the block-design from another .tcl script.
