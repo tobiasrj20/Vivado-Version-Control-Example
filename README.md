@@ -1,7 +1,6 @@
 # Vivado-Version-Control-Example
 Repository to show an example of how to do version control with Vivado and Xilinx SDK.
 
-## Folder description
 The Vivado folder contains the build.tcl script, which is exported from Vivado and afterwards modified to use relative paths and to create the block-design from another .tcl script.
 The SDK folder contains all the .c and .h source files as well as the BSP (board-support-package) for the hardware.
 
@@ -29,3 +28,51 @@ Every time changes have been made to the block design a new "block-design".tcl s
 4. Build project: Project->Build all
 5. Program FPGA: Xilinx Tools->Program FPGA
 6. Launch the software: Right-click on the project and select Run As->Launch on Hardware (GDB)
+
+## Creating TCL scripts
+**Create build.tcl file**
+
+File->Write Project Tcl
+
+**Create design_1.tcl for creating block-design file and HDL wrapper**
+
+Open Block Design
+File -> Export -> Export Block Design
+
+**Make the following changes to build.tcl**
+
+Replace
+```
+# Set the reference directory for source file relative paths
+set origin_dir "."
+```
+With
+```
+# Set the reference directory to where the script is
+set origin_dir [file dirname [info script]]
+```
+
+Replace
+```
+# Create project
+create_project myproject ./myproject
+```
+With
+```
+# Create project
+create_project myproject $origin_dir/myproject
+```
+
+Replace all absolute paths with relative paths (example below)
+
+`$origin_dir/src/hdl/test.vhd`
+
+Remove everything regarding HDL wrapper and block design files (.bd) and insert the following instead to create from .tcl script
+```
+# Create block design
+source $origin_dir/src/bd/design_1.tcl
+
+# Generate the wrapper
+set design_name [get_bd_designs]
+make_wrapper -files [get_files $design_name.bd] -top -import
+```
